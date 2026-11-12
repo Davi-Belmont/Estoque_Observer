@@ -1,0 +1,19 @@
+# Arquivos e pastas do IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Arquivos e pastas do Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+bin/
+
+# Arquivos compilados do Java
+*.class
+
+# Logs
+*.log
