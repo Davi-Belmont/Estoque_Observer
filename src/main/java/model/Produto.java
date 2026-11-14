@@ -11,14 +11,30 @@ public class Produto {
 	private int estoqueMinimo;
 
 	public Produto(String id, String nome, String descricao, BigDecimal precoUnitario, int quantidade, int estoqueMinimo) {
+
+		 if (id == null || id.isBlank()) {
+		     throw new IllegalArgumentException("ID inválido.");
+		 }
 		
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.precoUnitario = precoUnitario;
-        this.quantidade = quantidade;
-        this.estoqueMinimo = estoqueMinimo;
-	}
+		 if (nome == null || nome.isBlank()) {
+		     throw new IllegalArgumentException("Nome inválido.");
+		 }
+		
+		 if (precoUnitario == null || precoUnitario.compareTo(BigDecimal.ZERO) < 0) {
+		     throw new IllegalArgumentException("Preço inválido.");
+		 }
+		
+		 if (quantidade < 0 || estoqueMinimo < 0) {
+		     throw new IllegalArgumentException("Quantidade inválida.");
+ }
+
+ this.id = id;
+ this.nome = nome;
+ this.descricao = descricao;
+ this.precoUnitario = precoUnitario;
+ this.quantidade = quantidade;
+ this.estoqueMinimo = estoqueMinimo;
+}
 	// gets
 	public String getId() {return id;}
 	public String getNome() {return nome;}
@@ -29,23 +45,45 @@ public class Produto {
 	
 	// set
 	public void setNome(String nome) {
-	this.nome = nome;
+	    if (nome == null || nome.isBlank()) {
+	        throw new IllegalArgumentException("Nome inválido.");
+	    }
+
+	    this.nome = nome;
 	}
+
 	public void setDescricao(String descricao) {
-		this.descricao = descricao;	
+	    this.descricao = descricao;
 	}
+
 	public void setPreco(BigDecimal precoUnitario) {
-		this.precoUnitario = precoUnitario;
+	    if (precoUnitario == null ||
+	        precoUnitario.compareTo(BigDecimal.ZERO) < 0) {
+	        throw new IllegalArgumentException("Preço inválido.");
+	    }
+
+	    this.precoUnitario = precoUnitario;
 	}
 	
 	// controle de estoque
 	public void adicionarEstoque(int quantidade) {
-		
-		this.quantidade += quantidade;
+	    if (quantidade <= 0) {
+	        throw new IllegalArgumentException("Quantidade deve ser positiva.");
+	    }
+
+	    this.quantidade += quantidade;
 	}
-	
-	public void removerEstoque (int quantidade) {
-		this.quantidade -= quantidade;
+
+	public void removerEstoque(int quantidade) {
+	    if (quantidade <= 0) {
+	        throw new IllegalArgumentException("Quantidade deve ser positiva.");
+	    }
+
+	    if (quantidade > this.quantidade) {
+	        throw new IllegalArgumentException("Estoque insuficiente.");
+	    }
+
+	    this.quantidade -= quantidade;
 	}
 	
 	// estatus atual do estoque
