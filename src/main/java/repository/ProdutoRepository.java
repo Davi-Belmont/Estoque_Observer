@@ -1,3 +1,4 @@
+
 package repository;
 
 import model.Produto;
@@ -11,7 +12,12 @@ public class ProdutoRepository {
 
     private final Map<String, Produto> produtos = new HashMap<>();
 
+    // Cadastrar produto
     public void cadastrar(Produto produto) {
+
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto inválido.");
+        }
 
         String id = produto.getId();
 
@@ -24,10 +30,17 @@ public class ProdutoRepository {
         produtos.put(id, produto);
     }
 
+    // Buscar produto pelo ID
     public Produto buscarPorId(String id) {
+
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("ID inválido.");
+        }
+
         return produtos.get(id);
     }
 
+    // Listar todos os produtos
     public List<Produto> listarTodos() {
         return new ArrayList<>(produtos.values());
     }
