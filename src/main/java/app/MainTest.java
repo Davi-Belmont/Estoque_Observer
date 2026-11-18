@@ -24,9 +24,7 @@ public class MainTest {
         MovimentacaoService service =
                 new MovimentacaoService(eventBus);
 
-        System.out.println("\n====================================");
-        System.out.println("       DEMONSTRAÇÃO DO SISTEMA");
-        System.out.println("====================================");
+        System.out.println("DEMONSTRAÇÃO DO SISTEMA");
 
         // 1. Cadastro
         System.out.println("\n=== 1. CADASTRO DE PRODUTO ===");
@@ -77,8 +75,6 @@ public class MainTest {
 
         System.out.println(encontrado);
 
-        System.out.println("\n====================================");
-        System.out.println("       DEMONSTRAÇÃO FINALIZADA");
-        System.out.println("====================================");
+        System.out.println("DEMONSTRAÇÃO FINALIZADA");
     }
 }

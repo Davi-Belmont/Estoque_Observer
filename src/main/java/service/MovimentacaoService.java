@@ -1,4 +1,3 @@
-
 package service;
 
 import model.Produto;
@@ -8,7 +7,7 @@ import event.events.EstoqueAbaixoDoMinimo;
 public class MovimentacaoService {
 
     private final EventPublisher eventPublisher;
-
+    
     public MovimentacaoService(EventPublisher eventPublisher) {
         this.eventPublisher = eventPublisher;
     }
