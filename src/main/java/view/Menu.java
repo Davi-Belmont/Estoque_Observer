@@ -185,16 +185,26 @@ public class Menu {
         }
     }
 
+
     private BigDecimal lerPreco(String mensagem) {
         while (true) {
             System.out.print(mensagem);
 
             try {
                 String valor = scanner.nextLine().trim().replace(",", ".");
-                return new BigDecimal(valor);
+                BigDecimal preco = new BigDecimal(valor);
+
+                if (preco.compareTo(BigDecimal.ZERO) < 0) {
+                    System.out.println("O preço não pode ser negativo.");
+                    continue;
+                }
+
+                return preco;
+
             } catch (NumberFormatException e) {
                 System.out.println("Digite um preço válido.");
             }
         }
     }
+
 }

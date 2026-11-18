@@ -1,10 +1,9 @@
-
 package repository;
 
 import model.Produto;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ public class ProdutoRepository {
 
     private final Map<String, Produto> produtos = new HashMap<>();
 
-    // Cadastrar produto
     public void cadastrar(Produto produto) {
 
         if (produto == null) {
@@ -30,7 +28,6 @@ public class ProdutoRepository {
         produtos.put(id, produto);
     }
 
-    // Buscar produto pelo ID
     public Produto buscarPorId(String id) {
 
         if (id == null || id.isBlank()) {
@@ -40,7 +37,6 @@ public class ProdutoRepository {
         return produtos.get(id);
     }
 
-    // Listar todos os produtos
     public List<Produto> listarTodos() {
         return new ArrayList<>(produtos.values());
     }

@@ -1,3 +1,4 @@
+
 package service;
 
 import model.Produto;
@@ -6,40 +7,47 @@ import event.events.EstoqueAbaixoDoMinimo;
 
 public class MovimentacaoService {
 
-	private final EventPublisher eventPublisher;
-	
-    public MovimentacaoService(EventPublisher eventPublisher) {
-    	this.eventPublisher = eventPublisher;
-	}
-    
-    // registrar entrada 
-    public void registrarEntrada(Produto produto, int quantidade) {
-    	produto.adicionarEstoque(quantidade);
-    	System.out.println("Entrada Registrada com sucesso!");
-    }
-    
-    // registra saida
-    public void registrarSaida(Produto produto, int quantidade) {
-    	boolean estavaAbaixoDoMinimo = produto.estoqueAbaixoDoMinimo();
-    	
-    	produto.removerEstoque(quantidade);
-    	
-    	System.out.println("Produto removido com sucesso!");
+    private final EventPublisher eventPublisher;
 
-    	boolean estaAbaixoDoMinimo = produto.estoqueAbaixoDoMinimo();
-    	
-    	// ver se o estoque passou a fica abaixo do minimo
-    	if(!estavaAbaixoDoMinimo && estaAbaixoDoMinimo) {
-    		
-    		EstoqueAbaixoDoMinimo evento = 
-    				new EstoqueAbaixoDoMinimo(
-    						produto.getId(),
-    						produto.getNome(),
-    						produto.getQuantidade(),
-    						produto.getEstoqueMinimo()
-    						);
-    		
-    		eventPublisher.publicar(evento);
-    	}
+    public MovimentacaoService(EventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+    }
+
+    public void registrarEntrada(Produto produto, int quantidade) {
+
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto inválido.");
+        }
+
+        produto.adicionarEstoque(quantidade);
+
+        System.out.println("Entrada registrada com sucesso!");
+    }
+
+    public void registrarSaida(Produto produto, int quantidade) {
+
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto inválido.");
+        }
+
+        boolean estavaAbaixoDoMinimo = produto.estoqueAbaixoDoMinimo();
+
+        produto.removerEstoque(quantidade);
+
+        System.out.println("Produto removido com sucesso!");
+
+        boolean estaAbaixoDoMinimo = produto.estoqueAbaixoDoMinimo();
+
+        if (!estavaAbaixoDoMinimo && estaAbaixoDoMinimo) {
+
+            EstoqueAbaixoDoMinimo evento = new EstoqueAbaixoDoMinimo(
+                    produto.getId(),
+                    produto.getNome(),
+                    produto.getQuantidade(),
+                    produto.getEstoqueMinimo()
+            );
+
+            eventPublisher.publicar(evento);
+        }
     }
 }
